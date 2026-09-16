@@ -1,0 +1,391 @@
+2026-09-16 23:17:49,403 - INFO - Agent initialized with provider: deepseek, model: deepseek-v4-flash, context mode: full, verbose: True
+2026-09-16 23:17:49,403 - INFO - Iteration 1/3
+2026-09-16 23:17:49,403 - INFO - Sending request to deepseek API
+2026-09-16 23:17:49,812 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-09-16 23:17:50,704 - INFO - Executing tool: calculate with args: {'expression': '10 + 5'}
+2026-09-16 23:17:50,704 - INFO - Calculating: 10 + 5
+2026-09-16 23:17:50,704 - INFO - Iteration 2/3
+2026-09-16 23:17:50,705 - INFO - Sending request to deepseek API
+2026-09-16 23:17:50,791 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+============================================================
+QUICK TEST - DeepSeek Provider
+============================================================
+✅ Using: deepseek / deepseek-v4-flash
+   Base URL: https://api.deepseek.com
+
+📝 Task: What is 10 + 5? Provide FINAL ANSWER with just the number.
+----------------------------------------
+Processing...
+
+================================================================================
+📤 ITERATION 1 - FULL REQUEST JSON:
+--------------------------------------------------------------------------------
+{
+  "model": "deepseek-v4-flash",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an intelligent assistant with access to tools. \n\nYour task is to solve the given problems using the available tools. Think step by step and use tools as needed.\n\nImportant: When you have gathered all necessary information and computed the final answer, clearly state \"FINAL ANSWER:\" followed by your answer."
+    },
+    {
+      "role": "user",
+      "content": "What is 10 + 5? Provide FINAL ANSWER with just the number."
+    }
+  ],
+  "temperature": 0.3,
+  "max_tokens": 8192,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "parse_pdf",
+        "description": "Download and parse a PDF document from a URL or a file path to extract text content",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL or file path of the PDF document to parse"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "convert_currency",
+        "description": "Convert an amount from one currency to another using current exchange rates",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The amount to convert"
+            },
+            "from_currency": {
+              "type": "string",
+              "description": "The source currency code (e.g., USD, EUR)"
+            },
+            "to_currency": {
+              "type": "string",
+              "description": "The target currency code (e.g., USD, EUR)"
+            }
+          },
+          "required": [
+            "amount",
+            "from_currency",
+            "to_currency"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "Evaluate a simple mathematical expression",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "The mathematical expression to evaluate (e.g., '2 + 2 * 3')"
+            }
+          },
+          "required": [
+            "expression"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "code_interpreter",
+        "description": "Execute Python code for complex calculations, data processing, and computing totals. Use this for tasks like: summing lists of values, calculating percentages, aggregating financial data, performing multi-step calculations, or any computation requiring variables and intermediate steps.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Python code to execute. Can use variables, loops, and mathematical operations. Example: 'amounts = [2500000, 2278481, 2541806, 2282609, 2388060]; total = sum(amounts); print(f\"Total: ${total:,.2f}\")"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        }
+      }
+    }
+  ],
+  "tool_choice": "auto",
+  "thinking": {
+    "type": "enabled"
+  }
+}
+
+================================================================================
+📥 ITERATION 1 - FULL RESPONSE:
+--------------------------------------------------------------------------------
+{
+  "id": "f8fb11a6-e8a0-4e5d-b384-f4e2eebb8fb1",
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "call_00_aM09e6RU2HnjXL6skHCP0249",
+            "function": {
+              "arguments": "{\"expression\": \"10 + 5\"}",
+              "name": "calculate"
+            },
+            "type": "function",
+            "index": 0
+          }
+        ],
+        "reasoning_content": "Simple arithmetic."
+      }
+    }
+  ],
+  "created": 1789571869,
+  "model": "deepseek-flash",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": null,
+  "system_fingerprint": "aeb56401ca74e127821c4f9126dcb669",
+  "usage": {
+    "completion_tokens": 43,
+    "prompt_tokens": 749,
+    "total_tokens": 792,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 3,
+      "rejected_prediction_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 749
+  }
+}
+================================================================================
+
+
+================================================================================
+📤 ITERATION 2 - FULL REQUEST JSON:
+--------------------------------------------------------------------------------
+{
+  "model": "deepseek-v4-flash",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an intelligent assistant with access to tools. \n\nYour task is to solve the given problems using the available tools. Think step by step and use tools as needed.\n\nImportant: When you have gathered all necessary information and computed the final answer, clearly state \"FINAL ANSWER:\" followed by your answer."
+    },
+    {
+      "role": "user",
+      "content": "What is 10 + 5? Provide FINAL ANSWER with just the number."
+    },
+    {
+      "content": "",
+      "refusal": null,
+      "role": "assistant",
+      "annotations": null,
+      "audio": null,
+      "function_call": null,
+      "tool_calls": [
+        {
+          "id": "call_00_aM09e6RU2HnjXL6skHCP0249",
+          "function": {
+            "arguments": "{\"expression\": \"10 + 5\"}",
+            "name": "calculate"
+          },
+          "type": "function",
+          "index": 0
+        }
+      ],
+      "reasoning_content": "Simple arithmetic."
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_00_aM09e6RU2HnjXL6skHCP0249",
+      "content": "{\"expression\": \"10 + 5\", \"result\": 15, \"type\": \"int\"}"
+    }
+  ],
+  "temperature": 0.3,
+  "max_tokens": 8192,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "parse_pdf",
+        "description": "Download and parse a PDF document from a URL or a file path to extract text content",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL or file path of the PDF document to parse"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "convert_currency",
+        "description": "Convert an amount from one currency to another using current exchange rates",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The amount to convert"
+            },
+            "from_currency": {
+              "type": "string",
+              "description": "The source currency code (e.g., USD, EUR)"
+            },
+            "to_currency": {
+              "type": "string",
+              "description": "The target currency code (e.g., USD, EUR)"
+            }
+          },
+          "required": [
+            "amount",
+            "from_currency",
+            "to_currency"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "Evaluate a simple mathematical expression",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "The mathematical expression to evaluate (e.g., '2 + 2 * 3')"
+            }
+          },
+          "required": [
+            "expression"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "code_interpreter",
+        "description": "Execute Python code for complex calculations, data processing, and computing totals. Use this for tasks like: summing lists of values, calculating percentages, aggregating financial data, performing multi-step calculations, or any computation requiring variables and intermediate steps.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Python code to execute. Can use variables, loops, and mathematical operations. Example: 'amounts = [2500000, 2278481, 2541806, 2282609, 2388060]; total = sum(amounts); print(f\"Total: ${total:,.2f}\")"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        }
+      }
+    }
+  ],
+  "tool_choice": "auto",
+  "thinking": {
+    "type": "enabled"
+  }
+}2026-09-16 23:17:51,710 - INFO - Terminal text response (no tool calls); stopping after iteration 2
+
+
+================================================================================
+📥 ITERATION 2 - FULL RESPONSE:
+--------------------------------------------------------------------------------
+{
+  "id": "525a5541-dd52-4d68-802e-11b483d57598",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "FINAL ANSWER: 15",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null,
+        "reasoning_content": ""
+      }
+    }
+  ],
+  "created": 1789571870,
+  "model": "deepseek-flash",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": null,
+  "system_fingerprint": "aeb56401ca74e127821c4f9126dcb669",
+  "usage": {
+    "completion_tokens": 7,
+    "prompt_tokens": 825,
+    "total_tokens": 832,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": 640,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 185
+  }
+}
+================================================================================
+
+
+✅ Completed in 2.31 seconds
+Success: True
+Answer: 15
+Iterations: 2
+Tool calls: 1
+============================================================
